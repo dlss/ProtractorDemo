@@ -2,9 +2,9 @@
     "use strict";
 
     var path = require('path');
-    //var cons = require('./lib/const');
-    //var HtmlReporter = require('./lib/html-screenshot-reporter');
-    //var util = require('./lib/html-screenshot-reporter/util');
+    var cons = require('./lib/const');
+    var HtmlReporter = require('./lib/html-screenshot-reporter');
+    var util = require('./lib/html-screenshot-reporter/util');
 
     // In order to workaround the authentication of openpublishing-test repo, hosting team provide us a kind of
     // solution by setting http request header "x-ms-test" to do auth. By default, chrome web-driver doesn't load
@@ -40,8 +40,10 @@
         baseUrl: '',
 
         suites: {
-            crawler: 'senarioes/specs/crawler.js',
-            demo: 'senarioes/specs/demo.js'
+            uiDemo: 'senarioes/specs/UI/demo.js',
+
+            apiDemo: 'senarioes/specs/Backend/demo.js',
+            crawler: 'senarioes/specs/Backend/crawler.js'
         },
 
         exclude: [
@@ -55,10 +57,10 @@
         },
 
         params: {
-            //skipConsoleError: true,
-            //tablet: 769,
-            //desktop: 980,
-            //widescreen: 1180,
+            skipConsoleError: true,
+            tablet: 769,
+            desktop: 980,
+            widescreen: 1180
         },
 
         onPrepare: function() {
@@ -69,16 +71,16 @@
             browser.ignoreSynchronization = true;
 
             // Add a screenshot reporter and store screenshots to `result/e2e/screenshots`:
-            //jasmine.getEnv().addReporter(new HtmlReporter({
-            //    baseDirectory: cons.path.testResultDirectory,
-            //    preserveDirectory: true,
-            //    pathBuilder: function (spec, descriptions, results, capabilities) {
-            //        // use [timestamp]-[spec-description-text hashCode] as the filename of test result.
-            //        var timestamp = new Date().getTime().toString();
-            //        var desc = descriptions.join('|');
-            //        return timestamp + '-' + util.hashCode(desc);
-            //    }
-            //}));
+            jasmine.getEnv().addReporter(new HtmlReporter({
+                baseDirectory: cons.path.testResultDirectory,
+                preserveDirectory: true,
+                pathBuilder: function (spec, descriptions, results, capabilities) {
+                    // use [timestamp]-[spec-description-text hashCode] as the filename of test result.
+                    var timestamp = new Date().getTime().toString();
+                    var desc = descriptions.join('|');
+                    return timestamp + '-' + util.hashCode(desc);
+                }
+            }));
         }
     };
 })();

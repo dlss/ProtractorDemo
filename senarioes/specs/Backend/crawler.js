@@ -3,7 +3,7 @@
     require('shelljs/global');
 
     var util = require('util');
-    var requires = require('./../../requireModule');
+    var requires = require('./../../../requireModule');
     var nodelib = requires.nodelib;
     var testData = requires.testData.crawler;
 

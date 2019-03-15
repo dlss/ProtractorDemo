@@ -2,7 +2,7 @@
     'use strict';
 
     var util = require('util');
-    var requires = require('./../../requireModule');
+    var requires = require('./../../../requireModule');
     var nodelib = requires.nodelib;
     var testData = requires.testData.demo;
 
